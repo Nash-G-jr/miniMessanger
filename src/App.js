@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
 import Nav from './components/Nav/Nav';
 import Profile from './components/Profile/Profile';
 import { Routes } from 'react-router-dom';
 import Girlfriends from './components/Girlfriends/Girlfriends';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 
 const App = (props) => {
   return (
@@ -18,22 +18,9 @@ const App = (props) => {
           <Routes>
             <Route
               path="/dialogs"
-              element={
-                <Dialogs
-                  dialogsPage={props.state.dialogsPage}
-                  dispatch={props.dispatch}
-                />
-              }
+              element={<DialogsContainer store={props.store} />}
             />
-            <Route
-              path="/profile"
-              element={
-                <Profile
-                  profilePage={props.state.profilePage}
-                  dispatch={props.dispatch}
-                />
-              }
-            />
+            <Route path="/profile" element={<Profile store={props.store} />} />
             <Route
               path="/girlfriends"
               element={<Girlfriends state={props.state.girlfriends} />}
