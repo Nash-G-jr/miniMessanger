@@ -1,6 +1,10 @@
 import dialogsReducer from './dialogsReducer';
-import girlfriendsReducer from './girlfriendsReducer';
 import profileReducer from './profileReducer';
+
+
+
+//OLD BLL
+
 
 let store = {
   _state: {
@@ -30,14 +34,6 @@ let store = {
       ],
       newMessageText: '',
     },
-
-    girlfriends: [
-      { name: 'Diana', age: '21' },
-      { name: 'Anna', age: '23' },
-      { name: 'Veronika', age: '23' },
-      { name: 'Ksenya', age: '23' },
-      { name: 'Alina', age: '23' },
-    ],
   },
   getState() {
     return this._state;
@@ -52,10 +48,6 @@ let store = {
   dispatch(action) {
     this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-    this._state.girlfriends = girlfriendsReducer(
-      this._state.girlfriends,
-      action,
-    );
 
     this._callSubscriber(this._state);
   },

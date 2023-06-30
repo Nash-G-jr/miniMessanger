@@ -45,14 +45,6 @@ const Nav = () => {
           Settings
         </NavLink>
       </div>
-      <div className={s.item}>
-        <NavLink
-          to="/girlfriends"
-          className={(navData) => (navData.isActive ? s.active : s.item)}
-        >
-          Girlfriends
-        </NavLink>
-      </div>
     </nav>
   );
 };

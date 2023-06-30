@@ -8,6 +8,7 @@ let inititialState = {
   ],
   newPostText: '',
 };
+
 const profileReducer = (state = inititialState, action) => {
   switch (action.type) {
     case ADD_POST:
@@ -16,12 +17,18 @@ const profileReducer = (state = inititialState, action) => {
         message: state.newPostText,
         likeCount: 0,
       };
-      state.posts.push(newPost);
-      state.newPostText = '';
-      return state;
-    case UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.newText;
-      return state;
+      return {
+        ...state,
+        posts: [...state.posts, newPost],
+        newPostText: '',
+      };
+
+    case UPDATE_NEW_POST_TEXT: {
+      return {
+        ...state,
+        newPostText: [action.newText],
+      };
+    }
     default:
       return state;
   }
@@ -40,3 +47,29 @@ export const updateNewPostTextActionCreator = (text) => {
 };
 
 export default profileReducer;
+
+//const profileReducer = (state = inititialState, action) => {
+//  switch (action.type) {
+//    case ADD_POST: {
+//      let newPost = {
+//       id: 5,
+//       message: state.newPostText,
+//       likeCount: 0,
+//    };
+//    let stateCopy = { ...state };
+//   stateCopy.posts = [...state.posts];
+//   stateCopy.posts.push(newPost);
+//  stateCopy.newPostText = '';
+//    return stateCopy;
+//  }
+// case UPDATE_NEW_POST_TEXT: {
+//    let stateCopy = { ...state };
+//   stateCopy.newPostText = [...state.newPostText];
+//
+//   stateCopy.newPostText = action.newText;
+//   return stateCopy;
+// }
+//  default:
+//   return state;
+// }
+//};
