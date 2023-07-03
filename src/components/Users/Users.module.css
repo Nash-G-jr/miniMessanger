@@ -2,3 +2,7 @@
   width: 100px;
   height: 100px;
 }
+
+.pageName {
+  font-weight: bold;
+}
