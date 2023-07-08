@@ -7,7 +7,7 @@ const Nav = () => {
     <nav className={s.nav}>
       <div className={s.item}>
         <NavLink
-          to="/profile"
+          to="/profile/"
           className={(navData) => (navData.isActive ? s.active : s.item)}
         >
           Profile
