@@ -28,8 +28,14 @@ export const usersApi = {
 
 export const headerApi = {
   authentication() {
+    return instance.get(`auth/me`).then((response) => response.data);
+  },
+};
+
+export const profileApi = {
+  getProfile(userId) {
     return instance
-    .get(`/auth/me`)
-    .then((response) => response.data);
+      .get(`profile/` + userId, {})
+      .then((response) => response.data);
   },
 };

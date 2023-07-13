@@ -1,12 +1,9 @@
 import dialogsReducer from './dialogsReducer';
 import profileReducer from './profileReducer';
 
-
-
 //OLD BLL
 
-
-let store = {
+let oldStore = {
   _state: {
     profilePage: {
       posts: [
@@ -53,4 +50,4 @@ let store = {
   },
 };
 
-export default store;
+export default oldStore;
