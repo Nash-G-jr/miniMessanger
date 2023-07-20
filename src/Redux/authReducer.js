@@ -37,4 +37,6 @@ export const authenticactionThunk = () => {
     });
   };
 };
+
+
 export default authReducer;

@@ -1,5 +1,5 @@
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const CHANGE_MESSAGETEXT = 'CHANGE-MESSAGETEXT';
+
 
 let inititialState = {
   dialogs: [
@@ -17,7 +17,6 @@ let inititialState = {
     { id: 4, message: 'LockOff' },
     { id: 5, message: 'Hahahahah' },
   ],
-  newMessageText: '',
 };
 
 const dialogsReducer = (state = inititialState, action) => {
@@ -25,54 +24,24 @@ const dialogsReducer = (state = inititialState, action) => {
     case ADD_MESSAGE:
       return {
         ...state,
-        newMessageText: '',
-        messages: [...state.messages, { id: 6, message: state.newMessageText }],
+        messages: [
+          ...state.messages,
+          { id: 6, message: action.newMessageBody },
+        ],
       };
-    case CHANGE_MESSAGETEXT:
-      return {
-        ...state,
-        newMessageText: action.newMessage,
-      };
-
     default:
       return state;
   }
 };
 
-export const addMessage = () => {
-  return {
-    type: ADD_MESSAGE,
-  };
-};
+export const addMessage = (newMessageBody) => ({
+  type: ADD_MESSAGE,
+  newMessageBody,
+});
 
-export const onMessageChange = (text) => {
-  return {
-    type: CHANGE_MESSAGETEXT,
-    newMessage: text,
-  };
-};
+
+
 
 export default dialogsReducer;
 
-//const dialogsReducer = (state = inititialState, action) => {
-// switch (action.type) {
-//   case ADD_MESSAGE: {
-//    let newMessage = {
-//      id: 6,
-//      message: state.newMessageText,
-//    };
-//    let stateCopy = { ...state };
-//  stateCopy.messages = [...state.messages];
-//stateCopy.messages.push(newMessage);
-//stateCopy.newMessageText = '';
-//return stateCopy;
-// }
-//  case CHANGE_MESSAGETEXT: {
-//    let stateCopy = { ...state };
-//    stateCopy.newMessageText = action.newMessage;
-//  return stateCopy;
-//  }
-//  default:
-//    return state;
-//}
-//};
+

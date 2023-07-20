@@ -30,6 +30,16 @@ export const headerApi = {
   authentication() {
     return instance.get(`auth/me`).then((response) => response.data);
   },
+  postLogin(login, password, rememberMe, captcha) {
+    return instance
+      .post(`auth/login`, {
+        login,
+        password,
+        rememberMe,
+        captcha,
+      })
+      .then((response) => response);
+  },
 };
 
 export const profileApi = {
