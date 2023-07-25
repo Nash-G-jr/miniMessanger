@@ -10,12 +10,33 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
+// import { useLocation, useNavigate } from 'react-router-dom';
+
+// function withRouter(Component) {
+//   function ComponentWithRouterProp(props) {
+//     let location = useLocation();
+//     let navigate = useNavigate();
+//     let params = useParams();
+
+//     useEffect(() => {
+//       if (!props.isAuth) {
+//         navigate('/login');
+//       }
+//     }, [props.isAuth, navigate]);
+
+//     return <Component {...props} router={{ location, navigate, params }} />;
+//   }
+//   return ComponentWithRouterProp;
+// }
 
 let ProfileContainer = (props) => {
   let { userId } = useParams();
   if (!userId) {
     userId = props.authorizedUserId;
   }
+  // if (!props.authorizedUserId) {
+  //   props.history.push('/login');
+  // }
 
   useEffect(() => {
     props.getUserProfile(userId);
