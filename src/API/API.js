@@ -30,15 +30,15 @@ export const headerApi = {
   authentication() {
     return instance.get(`auth/me`).then((response) => response.data);
   },
-  postLogin(login, password, rememberMe, captcha) {
-    return instance
-      .post(`auth/login`, {
-        login,
-        password,
-        rememberMe,
-        captcha,
-      })
-      .then((response) => response);
+  login(email, password, rememberMe = false) {
+    return instance.post(`auth/login`, {
+      email,
+      password,
+      rememberMe,
+    });
+  },
+  logout() {
+    return instance.delete(`auth/login`);
   },
 };
 

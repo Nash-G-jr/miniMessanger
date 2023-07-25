@@ -1,1 +1,5 @@
-
+.formSummaryError {
+  border: solid red 1px;
+  color: brown;
+  padding: 5px;
+}
