@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
+import withRouter from '../../withRouter/withRouter';
 // import { useLocation, useNavigate } from 'react-router-dom';
 
 // function withRouter(Component) {
@@ -64,6 +65,7 @@ let mapStateToProps = (state) => ({
 });
 
 export default compose(
+  withRouter,
   connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
   withAuthRedirect,
 )(ProfileContainer);
