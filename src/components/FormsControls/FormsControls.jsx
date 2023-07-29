@@ -1,4 +1,5 @@
 import React from 'react';
+import { Field } from 'redux-form';
 import s from './FormsControls.module.css';
 
 export const Element =
@@ -12,3 +13,21 @@ export const Element =
       </div>
     );
   };
+
+export const CreateField = (
+  placeholder,
+  name,
+  component,
+  validates,
+  ...props
+) => {
+  <div>
+    <Field
+      placeholder={placeholder}
+      name={name}
+      component={component}
+      validate={validates}
+      {...props}
+    />
+  </div>;
+};

@@ -3,6 +3,7 @@ import { profileApi } from '../API/API';
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 let inititialState = {
   posts: [
@@ -25,6 +26,11 @@ const profileReducer = (state = inititialState, action) => {
         ...state,
         posts: [...state.posts, newPost],
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: [...state.posts.filter((p) => p.id !== action.id)],
+      };
 
     case SET_USER_PROFILE: {
       return {
@@ -44,6 +50,8 @@ const profileReducer = (state = inititialState, action) => {
 };
 
 export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
+export const deletePost = (userId) => ({ type: DELETE_POST, userId });
+
 export const setUserProfile = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
@@ -51,29 +59,22 @@ export const setUserProfile = (profile) => ({
 
 export const setStatus = (status) => ({ type: SET_STATUS, status });
 
-export const getStatus = (userId) => {
-  return (dispatch) => {
-    profileApi.getStatus(userId).then((data) => {
-      dispatch(setStatus(data));
-    });
-  };
-};
-export const updateStatus = (status) => {
-  return (dispatch) => {
-    profileApi.updateStatus(status).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setStatus(status));
-      }
-    });
-  };
+export const getStatus = (userId) => async (dispatch) => {
+  let data = await profileApi.getStatus(userId);
+  dispatch(setStatus(data));
 };
 
-export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    profileApi.getProfile(userId).then((data) => {
-      dispatch(setUserProfile(data));
-    });
-  };
+export const updateStatus = (status) => async (dispatch) => {
+  let data = await profileApi.updateStatus(status);
+
+  if (data.resultCode === 0) {
+    dispatch(setStatus(status));
+  }
+};
+
+export const getUserProfile = (userId) => async (dispatch) => {
+  let data = await profileApi.getProfile(userId);
+  dispatch(setUserProfile(data));
 };
 
 export default profileReducer;

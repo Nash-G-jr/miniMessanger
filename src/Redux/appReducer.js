@@ -1,4 +1,4 @@
-import { authenticactionThunk } from './authReducer';
+import { authenticationThunk } from './authReducer';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
@@ -23,7 +23,7 @@ export const initializedSuccess = () => ({
 });
 
 export const initializeApp = () => (dispatch) => {
-  let promise = dispatch(authenticactionThunk());
+  let promise = dispatch(authenticationThunk());
 
   Promise.all([promise]).then(() => {
     dispatch(initializedSuccess());
