@@ -3,8 +3,8 @@ import Header from './Header';
 import { connect } from 'react-redux/es/exports';
 import { logout } from '../../Redux/authReducer';
 import { compose } from 'redux';
-import withRouter from '../../withRouter/withRouter';
-import { withAuthRedirect } from '../../HOC/withAuthRedirect';
+// import withRouter from '../../withRouter/withRouter';
+// import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 class HeaderContainer extends React.Component {
   render() {
     return <Header {...this.props} />;

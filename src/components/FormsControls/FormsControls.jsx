@@ -17,17 +17,19 @@ export const Element =
 export const CreateField = (
   placeholder,
   name,
+  validators,
   component,
-  validates,
-  ...props
+  props = {},
+  text = '',
 ) => {
   <div>
     <Field
       placeholder={placeholder}
       name={name}
+      validate={validators}
       component={component}
-      validate={validates}
       {...props}
+      text={text}
     />
   </div>;
 };
