@@ -6,6 +6,7 @@ import usersReducer from './usersReducer';
 import thunkMiddleware from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 import appReducer from './appReducer';
+import { compose } from 'redux';
 
 let reducers = combineReducers({
   dialogsPage: dialogsReducer,
@@ -16,6 +17,12 @@ let reducers = combineReducers({
   app: appReducer,
 });
 
-let store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = legacy_createStore(
+  reducers,
+  composeEnhancers(applyMiddleware(thunkMiddleware)),
+);
+window.__store__ = store;
+// let store = legacy_createStore(reducers, applyMiddleware(thunkMiddleware));
 
 export default store;
