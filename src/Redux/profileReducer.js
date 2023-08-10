@@ -4,6 +4,7 @@ const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const DELETE_POST = 'DELETE_POST';
+const SAVE_PHOTOSUCCESS = 'SAVE_PHOTOSUCCESS';
 
 let inititialState = {
   posts: [
@@ -44,6 +45,12 @@ const profileReducer = (state = inititialState, action) => {
         status: action.status,
       };
     }
+    case SAVE_PHOTOSUCCESS: {
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photos },
+      };
+    }
     default:
       return state;
   }
@@ -58,6 +65,10 @@ export const setUserProfile = (profile) => ({
 });
 
 export const setStatus = (status) => ({ type: SET_STATUS, status });
+export const savePhotoSuccess = (photos) => ({
+  type: SAVE_PHOTOSUCCESS,
+  photos,
+});
 
 export const getStatus = (userId) => async (dispatch) => {
   let data = await profileApi.getStatus(userId);
@@ -72,35 +83,17 @@ export const updateStatus = (status) => async (dispatch) => {
   }
 };
 
+export const savePhoto = (file) => async (dispatch) => {
+  let data = await profileApi.savePhoto(file);
+
+  if (data.resultCode === 0) {
+    dispatch(savePhotoSuccess(data.data.photos));
+  }
+};
+
 export const getUserProfile = (userId) => async (dispatch) => {
   let data = await profileApi.getProfile(userId);
   dispatch(setUserProfile(data));
 };
 
 export default profileReducer;
-
-//const profileReducer = (state = inititialState, action) => {
-//  switch (action.type) {
-//    case ADD_POST: {
-//      let newPost = {
-//       id: 5,
-//       message: state.newPostText,
-//       likeCount: 0,
-//    };
-//    let stateCopy = { ...state };
-//   stateCopy.posts = [...state.posts];
-//   stateCopy.posts.push(newPost);
-//  stateCopy.newPostText = '';
-//    return stateCopy;
-//  }
-// case UPDATE_NEW_POST_TEXT: {
-//    let stateCopy = { ...state };
-//   stateCopy.newPostText = [...state.newPostText];
-//
-//   stateCopy.newPostText = action.newText;
-//   return stateCopy;
-// }
-//  default:
-//   return state;
-// }
-//};

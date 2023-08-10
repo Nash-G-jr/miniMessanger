@@ -5,54 +5,46 @@ import {
   getUserProfile,
   getStatus,
   updateStatus,
+  savePhoto,
 } from '../../Redux/profileReducer';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
 import withRouter from '../../withRouter/withRouter';
-// import { useLocation, useNavigate } from 'react-router-dom';
 
-// function withRouter(Component) {
-//   function ComponentWithRouterProp(props) {
-//     let location = useLocation();
-//     let navigate = useNavigate();
-//     let params = useParams();
-
-//     useEffect(() => {
-//       if (!props.isAuth) {
-//         navigate('/login');
-//       }
-//     }, [props.isAuth, navigate]);
-
-//     return <Component {...props} router={{ location, navigate, params }} />;
-//   }
-//   return ComponentWithRouterProp;
-// }
-
-let ProfileContainer = (props) => {
+let ProfileContainer = ({
+  profile,
+  status,
+  updateStatus,
+  authorizedUserId,
+  getUserProfile,
+  getStatus,
+  savePhoto,
+}) => {
   let { userId } = useParams();
+
   if (!userId) {
-    userId = props.authorizedUserId;
+    userId = authorizedUserId;
   }
-  // if (!props.authorizedUserId) {
-  //   props.history.push('/login');
-  // }
 
   useEffect(() => {
-    props.getUserProfile(userId);
-  }, [userId]);
+    getUserProfile(userId);
+  }, [getUserProfile, userId]);
 
   useEffect(() => {
-    props.getStatus(userId);
-  }, [userId]);
+    getStatus(userId);
+    return () => {};
+  }, [getStatus, userId]);
 
   return (
     <div>
       <Profile
-        profile={props.profile}
-        status={props.status}
-        updateStatus={props.updateStatus}
+        isOwner={userId === authorizedUserId}
+        profile={profile}
+        status={status}
+        updateStatus={updateStatus}
+        savePhoto={savePhoto}
       />
     </div>
   );
@@ -66,12 +58,11 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
+  connect(mapStateToProps, {
+    getUserProfile,
+    getStatus,
+    updateStatus,
+    savePhoto,
+  }),
   withAuthRedirect,
 )(ProfileContainer);
-
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
-// export default connect(mapStateToProps, { getUserProfile })(
-//   AuthRedirectComponent,
-// );

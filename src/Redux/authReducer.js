@@ -51,7 +51,6 @@ export const logout = () => async (dispatch) => {
 
   if (resultCode === 0) {
     dispatch(setAuthUserData(null, null, null, false));
-    window.location = '/login';
   }
 };
 export default authReducer;
