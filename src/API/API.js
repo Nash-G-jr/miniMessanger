@@ -58,6 +58,9 @@ export const profileApi = {
       .put(`profile/status`, { status: status })
       .then((response) => response.data);
   },
+  saveProfile(profile) {
+    return instance.put(`profile`, profile);
+  },
   savePhoto(photoFile) {
     var formData = new FormData();
     formData.append('image', photoFile);

@@ -6,6 +6,7 @@ import {
   getStatus,
   updateStatus,
   savePhoto,
+  saveProfile,
 } from '../../Redux/profileReducer';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -21,6 +22,7 @@ let ProfileContainer = ({
   getUserProfile,
   getStatus,
   savePhoto,
+  saveProfile,
 }) => {
   let { userId } = useParams();
 
@@ -45,6 +47,7 @@ let ProfileContainer = ({
         status={status}
         updateStatus={updateStatus}
         savePhoto={savePhoto}
+        saveProfile={saveProfile}
       />
     </div>
   );
@@ -63,6 +66,7 @@ export default compose(
     getStatus,
     updateStatus,
     savePhoto,
+    saveProfile,
   }),
   withAuthRedirect,
 )(ProfileContainer);
